@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 void menu() {
@@ -10,11 +11,18 @@ void menu() {
     cout << "Escoja una opción válida" << endl;
 }
 
-void ejercicio1() {
+void ejercicio1() {    
     char cadena[100];
     char alfabeto[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    char inverso[] =  "ZYXWVUTSRQPONMLKJIHGFEDCBA";
-    cout << "Ingrese el mensaje encriptado: ";
+    char inverso[] = "ZYXWVUTSRQPONMLKJIHGFEDCBA";
+    cout << "Ingrese el mensaje a desencriptar: ";
+    cin >> cadena;
+    int longitud = strlen(cadena);
+    for (int i = 0; i < longitud; i++){
+        char indice = cadena[i];
+        
+    }
+
 }
 
 void ejercicio2() {
@@ -35,7 +43,6 @@ int main() {
         switch (opcion) {
 
         case 1:
-            cout << "En construcción" << endl;
             ejercicio1();
             break;
 
