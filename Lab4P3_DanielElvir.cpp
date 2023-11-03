@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <cstdlib>
 using namespace std;
 
 void menu() {
@@ -26,7 +27,35 @@ void ejercicio1() {
 }
 
 void ejercicio2() {
+    int numCasa;
+    bool valido = true;
+    int acumulador = 0;
+    int mayor = 0;
+    
+    cout << "Ingrese el numero de casas que hay en la residencial (entre 5 y 15): ";
+    cin >> numCasa;
+    while (valido) {
+        if (numCasa >= 5 && numCasa <= 15) {
+            valido = false;
+        }
+        else {
+            cout << "NUMERO INVALIDO" << endl;
+            cout << "Ingrese el numero de casas que hay en la residencial (entre 5 y 15): ";
+            cin >> numCasa;
+            valido = true;
+        }
+    }
+    int* cajasFuertes = new int[numCasa];
+    cout << "Valores de las cajas fuertes en cada casa: " << endl;
+    for (int i = 0; i < numCasa; ++i) {
+        cajasFuertes[i] = rand() % 9501 + 500;
+        cout << "Casa " << i << ": " << cajasFuertes[i] << endl;
+    }
 
+
+    cout << endl;
+    cout << "La mejor combinacion para robar es: ";
+    cout << "Con una ganancia total de: " << acumulador << endl;
 }
 
 void ejercicio3() {
