@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <cstdlib>
+#include <vector>
 using namespace std;
 
 void menu() {
@@ -26,7 +27,7 @@ void ejercicio1() {
 
 }
 
-void ejercicio2() {
+/*void ejercicio2() {
     int numCasa;
     bool valido = true;
     int acumulador = 0;
@@ -45,21 +46,94 @@ void ejercicio2() {
             valido = true;
         }
     }
-    int* cajasFuertes = new int[numCasa];
+    int cajasFuertes[numCasa];
     cout << "Valores de las cajas fuertes en cada casa: " << endl;
     for (int i = 0; i < numCasa; ++i) {
         cajasFuertes[i] = rand() % 9501 + 500;
-        cout << "Casa " << i << ": " << cajasFuertes[i] << endl;
+        cout << "Casa " << i << ": $" << cajasFuertes[i] << endl;
     }
+
+    int mayor = 0;
 
 
     cout << endl;
     cout << "La mejor combinacion para robar es: ";
     cout << "Con una ganancia total de: " << acumulador << endl;
-}
+}*/
 
 void ejercicio3() {
+    int tamano=0;    
+    cout << "Ingrese el tamaño del arreglo: ";
+    cin >> tamano;    
+    char* inicial = new char[tamano];
+    char* arrFin = new char[tamano];
+    for (int i = 0; i < tamano; i++) {
+        int random = rand() % 3;
+        if (random == 0) {
+            inicial[i] = '0';
+        } else if (random == 1) {
+            inicial[i] = '1';
+        } else {
+            inicial[i] = 'X';
+        }
+    }
 
+    cout << "Arreglo inicial: ";
+    for (int i = 0; i < tamano; i++) {
+        cout << inicial[i]<< " ";
+    }
+    cout << endl;
+
+    bool cambios = true;
+    while (cambios) {
+        cambios = false;       
+        for (int i = 0; i < tamano; ++i) {
+            arrFin[i] = inicial[i];
+            if (inicial[i] == '0') {
+                if ((i > 0 && inicial[i - 1] == 'X') || (i < tamano - 1 && inicial[i + 1] == 'X')) {
+                    arrFin[i] = 'X';
+                    cambios = true;
+                }
+            }
+        }
+
+        for (int i = 0; i < tamano; ++i) {
+            if (inicial[i] == 'X') {
+                int j = i - 1;
+                while (j >= 0 && inicial[j] != '1') {
+                    if (inicial[j] == '0') {
+                        arrFin[j] = 'X';
+                        cambios = true;
+                    }
+                    --j;
+                }
+                j = i + 1;
+                while (j < tamano && inicial[j] != '1') {
+                    if (inicial[j] == '0') {
+                        arrFin[j] = 'X';
+                        cambios = true;
+                    }
+                    ++j;
+                }
+            }
+        }
+
+      
+    }
+    int aSalvo = 0;
+    for (int i = 0; i < tamano; i++) {
+        if (arrFin[i]=='0') {
+            aSalvo++;
+        }
+    }
+
+    cout << "Arreglo final: ";
+    for (int i = 0; i < tamano; i++) {
+        cout << arrFin[i] << " ";
+    }
+    cout << endl;
+
+    cout << "Personas a salvo: " << aSalvo << endl;
 }
 
 int main() {
@@ -76,12 +150,10 @@ int main() {
             break;
 
         case 2:
-            cout << "En construcción" << endl;
-            ejercicio2();
+            //ejercicio2();
             break;
 
         case 3:
-            cout << "En construcción" << endl;
             ejercicio3();
             break;
 
