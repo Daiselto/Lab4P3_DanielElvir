@@ -15,51 +15,74 @@ void menu() {
 
 void ejercicio1() {    
     char cadena[100];
+    bool mayus = true;
     char alfabeto[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     char inverso[] = "ZYXWVUTSRQPONMLKJIHGFEDCBA";
     cout << "Ingrese el mensaje a desencriptar: ";
-    cin >> cadena;
+    cin >> cadena;    
     int longitud = strlen(cadena);
-    for (int i = 0; i < longitud; i++){
-        char indice = cadena[i];
-        
+    while (mayus) {
+        for (int i = 0; i < longitud; i++) {
+            if (cadena[i]>='A' && cadena[i]<='Z') {
+                mayus = false;
+            }else {
+                cout << "SOLO MAYUSCULAS" << endl;
+                cout << "Ingrese el mensaje a desencriptar: ";
+                cin >> cadena;
+                longitud = strlen(cadena);
+                mayus = true;
+                break;
+            }
+        }
+    }
+    char* nuevaCad = new char[longitud+1];
+    for (int i = 1; i < longitud+1; i++) {
+        if (i % 2 == 0) {
+            nuevaCad[i] = inverso[i + 2];
+        } else {
+            nuevaCad[i] = alfabeto[i - 2];
+        }
     }
 
+    nuevaCad[longitud] = '\0';
+
+    cout << "La desencriptación de " << cadena << " es " << nuevaCad << endl;
+    cout << endl;
+
+    delete[] nuevaCad;
 }
 
-/*void ejercicio2() {
+void ejercicio2() {
     int numCasa;
     bool valido = true;
     int acumulador = 0;
     int mayor = 0;
     
-    cout << "Ingrese el numero de casas que hay en la residencial (entre 5 y 15): ";
+    cout << "Ingrese el número de casas que hay en la residencial (entre 5 y 15): ";
     cin >> numCasa;
     while (valido) {
         if (numCasa >= 5 && numCasa <= 15) {
             valido = false;
         }
         else {
-            cout << "NUMERO INVALIDO" << endl;
-            cout << "Ingrese el numero de casas que hay en la residencial (entre 5 y 15): ";
+            cout << "NÚMERO INVALIDO" << endl;
+            cout << "Ingrese el número de casas que hay en la residencial (entre 5 y 15): ";
             cin >> numCasa;
             valido = true;
         }
     }
-    int cajasFuertes[numCasa];
+    int* cajasFuertes = new int[numCasa];
     cout << "Valores de las cajas fuertes en cada casa: " << endl;
     for (int i = 0; i < numCasa; ++i) {
-        cajasFuertes[i] = rand() % 9501 + 500;
+        cajasFuertes[i] = 500 + rand() %(10000-500+1);
         cout << "Casa " << i << ": $" << cajasFuertes[i] << endl;
     }
 
-    int mayor = 0;
-
 
     cout << endl;
-    cout << "La mejor combinacion para robar es: ";
+    cout << "La mejor combinacion para robar es: " << endl;
     cout << "Con una ganancia total de: " << acumulador << endl;
-}*/
+}
 
 void ejercicio3() {
     int tamano=0;    
@@ -80,7 +103,7 @@ void ejercicio3() {
 
     cout << "Arreglo inicial: ";
     for (int i = 0; i < tamano; i++) {
-        cout << inicial[i]<< " ";
+        cout << inicial[i] << " ";
     }
     cout << endl;
 
@@ -117,8 +140,6 @@ void ejercicio3() {
                 }
             }
         }
-
-      
     }
     int aSalvo = 0;
     for (int i = 0; i < tamano; i++) {
@@ -150,7 +171,7 @@ int main() {
             break;
 
         case 2:
-            //ejercicio2();
+            ejercicio2();
             break;
 
         case 3:
