@@ -19,7 +19,10 @@ void ejercicio1() {
     char alfabeto[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     char inverso[] = "ZYXWVUTSRQPONMLKJIHGFEDCBA";
     cout << "Ingrese el mensaje a desencriptar: ";
-    cin >> cadena;    
+    cin.ignore();
+    cin.getline(cadena, 100, '\n');
+
+    
     int longitud = strlen(cadena);
     while (mayus) {
         for (int i = 0; i < longitud; i++) {
@@ -35,29 +38,23 @@ void ejercicio1() {
             }
         }
     }
-    char* nuevaCad = new char[longitud];
-    for (int i = 0; i < longitud; ++i) {
-        if (i % 2 == 0) {
-            if (i>=1 && i<=26){
-                nuevaCad[i] = inverso[i + 2];
-                cout << nuevaCad[i];
+    cout << "La desencriptación de " << cadena;
+    
+    for (int i = 0; i < cadena[i]; i++) {
+        if (cadena[i]>=65 && cadena[i]<=95){
+            if (cadena[0] % 2 == 0) {
+                cadena[i] = cadena[i]+2;
             }
-            
-        } else {
-            if (i>=1 && i<=26) {
-                nuevaCad[i] = alfabeto[i - 2];
-                cout << nuevaCad[i];
+            else {
+                cadena[i] = cadena[i]-2;
             }
-            
         }
     }
 
-    nuevaCad[longitud] = '\0';
 
-    cout << "La desencriptación de " << cadena << " es " << nuevaCad << endl;
+    cout << " es " << cadena << endl;
     cout << endl;
 
-    delete[] nuevaCad;
 }
 
 void ejercicio2() {
