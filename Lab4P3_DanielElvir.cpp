@@ -35,12 +35,20 @@ void ejercicio1() {
             }
         }
     }
-    char* nuevaCad = new char[longitud+1];
-    for (int i = 1; i < longitud+1; i++) {
+    char* nuevaCad = new char[longitud];
+    for (int i = 0; i < longitud; ++i) {
         if (i % 2 == 0) {
-            nuevaCad[i] = inverso[i + 2];
+            if (i>=1 && i<=26){
+                nuevaCad[i] = inverso[i + 2];
+                cout << nuevaCad[i];
+            }
+            
         } else {
-            nuevaCad[i] = alfabeto[i - 2];
+            if (i>=1 && i<=26) {
+                nuevaCad[i] = alfabeto[i - 2];
+                cout << nuevaCad[i];
+            }
+            
         }
     }
 
@@ -76,46 +84,51 @@ void ejercicio2() {
     for (int i = 0; i < numCasa; ++i) {
         cajasFuertes[i] = 500 + rand() %(10000-500+1);
         cout << "Casa " << i << ": $" << cajasFuertes[i] << endl;
+        if (i%2==0) {
+            acumulador += cajasFuertes[i];
+        }
     }
 
 
     cout << endl;
-    cout << "La mejor combinacion para robar es: " << endl;
+    cout << "La mejor combinacion para robar es: ";
+    for (int i = 0; i < numCasa; i++) {
+        if (i % 2 == 0) {
+            cout << i << " ";
+        }
+    }
+    cout << endl;
     cout << "Con una ganancia total de: " << acumulador << endl;
 }
 
-void ejercicio3() {
-    int tamano=0;    
-    cout << "Ingrese el tamaño del arreglo: ";
-    cin >> tamano;    
-    char* inicial = new char[tamano];
-    char* arrFin = new char[tamano];
+void llenarIslas(char* inicial, int tamano) {
     for (int i = 0; i < tamano; i++) {
         int random = rand() % 3;
         if (random == 0) {
             inicial[i] = '0';
-        } else if (random == 1) {
+        }
+        else if (random == 1) {
             inicial[i] = '1';
-        } else {
+        }
+        else {
             inicial[i] = 'X';
         }
     }
+}
 
-    cout << "Arreglo inicial: ";
-    for (int i = 0; i < tamano; i++) {
-        cout << inicial[i] << " ";
-    }
-    cout << endl;
-
+void simularIslas(char* inicial, int tamano) {
     bool cambios = true;
     while (cambios) {
-        cambios = false;       
+        cambios = false;
+
         for (int i = 0; i < tamano; ++i) {
-            arrFin[i] = inicial[i];
             if (inicial[i] == '0') {
                 if ((i > 0 && inicial[i - 1] == 'X') || (i < tamano - 1 && inicial[i + 1] == 'X')) {
-                    arrFin[i] = 'X';
+                    inicial[i] = 'X';
                     cambios = true;
+                }
+                else if (i > 0 && i < tamano - 1 && inicial[i - 1] == '1' && inicial[i + 1] == '1') {
+                    inicial[i] = '0';
                 }
             }
         }
@@ -125,7 +138,7 @@ void ejercicio3() {
                 int j = i - 1;
                 while (j >= 0 && inicial[j] != '1') {
                     if (inicial[j] == '0') {
-                        arrFin[j] = 'X';
+                        inicial[j] = 'X';
                         cambios = true;
                     }
                     --j;
@@ -133,7 +146,7 @@ void ejercicio3() {
                 j = i + 1;
                 while (j < tamano && inicial[j] != '1') {
                     if (inicial[j] == '0') {
-                        arrFin[j] = 'X';
+                        inicial[j] = 'X';
                         cambios = true;
                     }
                     ++j;
@@ -141,16 +154,37 @@ void ejercicio3() {
             }
         }
     }
+   
+}
+
+void ejercicio3() {
+    int tamano=0;    
+    cout << "Ingrese el tamaño del arreglo: ";
+    cin >> tamano;    
+    char* inicial = new char[tamano];
+    
+    llenarIslas(inicial, tamano);
+
+    cout << "Arreglo inicial: ";
+    for (int i = 0; i < tamano; i++) {
+        cout << inicial[i] << " ";
+    }
+    cout << endl;
+
+    simularIslas(inicial, tamano);
+
     int aSalvo = 0;
     for (int i = 0; i < tamano; i++) {
-        if (arrFin[i]=='0') {
+        if (inicial[i]=='0') {
             aSalvo++;
         }
     }
 
+    
+
     cout << "Arreglo final: ";
     for (int i = 0; i < tamano; i++) {
-        cout << arrFin[i] << " ";
+        cout << inicial[i] << " ";
     }
     cout << endl;
 
